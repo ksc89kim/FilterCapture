@@ -203,8 +203,8 @@ extension FilterCaptureView: AVCaptureVideoDataOutputSampleBufferDelegate {
     from connection: AVCaptureConnection
   ) {
     let convertImage = self.convertSmapleBuffer(sampleBuffer: sampleBuffer)
-    DispatchQueue.main.async {
-      self.preImageView.image = convertImage
+    DispatchQueue.main.async { [weak self] in
+      self?.preImageView.image = convertImage
     }
   }
   
