@@ -14,29 +14,45 @@ import SnapKit
 
 final class ViewController: UIViewController {
 
+  // MARK: Defines
+
+  enum Text {
+    static let buttonTitle = "스위치"
+  }
+
+
+  // MARK: UI Components
+
   private let captrueView: FilterCaptureView = {
     let captrueView = FilterCaptureView()
     captrueView.configure([
-      .filter(CIFilter(name: "")),
+      .filter(.sepiaTone),
       .sessionPreset(.high)
     ])
     return captrueView
   }()
 
-  private let button: UIButton = {
+  private let switchButton: UIButton = {
     let button = UIButton()
-    button.setTitle("스위치", for: .normal)
-    button.addTarget(self, action:#selector(switchTap(sender:)), for: .touchUpInside)
+    button.setTitle(Text.buttonTitle, for: .normal)
     return button
   }()
 
+
+  // MARK: Properties
+
+  let disposeBag: DisposeBag = DisposeBag()
+
+  var didMakeConstraints: Bool = false
+
+
+  // MARK: Life Cycle
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
-    self.view.addSubview(self.captrueView)
-    self.view.addSubview(self.button)
 
-    self.makeConstraints()
+    self.makeLayout()
+    self.bind()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -49,25 +65,36 @@ final class ViewController: UIViewController {
     self.captrueView.rx.stopCaptrue.onNext(())
   }
 
-  // MARK: Layout
 
-  private func makeConstraints() {
+  // MARK: Bind
+
+  func bind() {
+    self.switchButton.rx.tap
+      .bind(to: self.captrueView.rx.switchCamera)
+      .disposed(by: self.disposeBag)
+  }
+}
+
+
+extension ViewController: MakeLayout {
+  enum Metric {
+    static let switchButtonTop = 50
+    static let switchButtonRight = -30
+  }
+
+  func addSubViews() {
+    self.view.addSubview(self.captrueView)
+    self.view.addSubview(self.switchButton)
+  }
+
+  func makeConstraints() {
     self.captrueView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
 
-    self.button.snp.makeConstraints { make in
-      make.top.equalTo(50)
-      make.right.equalTo(-30)
+    self.switchButton.snp.makeConstraints { make in
+      make.top.equalTo(Metric.switchButtonTop)
+      make.right.equalTo(Metric.switchButtonRight)
     }
   }
-
-  // MARK: Action
-
-  @objc
-  func switchTap(sender: UIButton) {
-    self.captrueView.rx.switchCamera.onNext(())
-  }
-
 }
-

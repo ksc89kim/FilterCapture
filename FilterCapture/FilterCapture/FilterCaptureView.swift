@@ -14,13 +14,19 @@ import SnapKit
 
 final class FilterCaptureView: UIView {
 
+  // MARK: Defines
+
   enum Configuration {
     case filter(CIFilter?)
     case sessionPreset(AVCaptureSession.Preset)
   }
 
+  enum QueueName {
+    static let video = "com.tronplay.videoQueue"
+  }
 
-  // MARK: UI components
+
+  // MARK: UI Components
 
   private let preImageView: UIImageView = {
     let preview = UIImageView()
@@ -32,8 +38,10 @@ final class FilterCaptureView: UIView {
 
   private var isCemeraFront: Bool = false
 
+  var didMakeConstraints: Bool = false
+
   private var videoDevice: AVCaptureDevice? {
-    let position: AVCaptureDevice.Position = (isCemeraFront) ? .front:.back
+    let position: AVCaptureDevice.Position = (self.isCemeraFront) ? .front:.back
     let device = AVCaptureDevice.default(
       .builtInWideAngleCamera,
       for: .video,
@@ -49,7 +57,7 @@ final class FilterCaptureView: UIView {
   }()
 
   private var filter: CIFilter? = {
-    let filter = CIFilter(name: "CISepiaTone")
+    let filter = CIFilter.clear
     return filter
   }()
 
@@ -64,31 +72,12 @@ final class FilterCaptureView: UIView {
   init() {
     super.init(frame: .zero)
 
-    self.addSubview(preImageView)
+    self.makeLayout()
     self.updateCameraSession()
   }
 
   required init?(coder aDecoder: NSCoder) {
     fatalError()
-  }
-
-
-  // MARK: Layout
-
-  private(set) var setupMakeConstraints = false
-
-  override func updateConstraints() {
-    if !self.setupMakeConstraints {
-      self.makeConstraints()
-      self.setupMakeConstraints = true
-    }
-    super.updateConstraints()
-  }
-
-  private func makeConstraints() {
-    self.preImageView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
-    }
   }
 
 
@@ -125,29 +114,29 @@ final class FilterCaptureView: UIView {
         (kCVPixelBufferPixelFormatTypeKey as String) : NSNumber(value: kCVPixelFormatType_32BGRA as UInt32)
       ]
 
-      cameraSession.beginConfiguration()
+      self.cameraSession.beginConfiguration()
 
-      if let firstInput = cameraSession.inputs.first {
-        cameraSession.removeInput(firstInput)
+      if let firstInput = self.cameraSession.inputs.first {
+        self.cameraSession.removeInput(firstInput)
       }
 
-      if cameraSession.canAddInput(deviceInput) {
-        cameraSession.addInput(deviceInput)
+      if self.cameraSession.canAddInput(deviceInput) {
+        self.cameraSession.addInput(deviceInput)
       }
 
-      if let firstOutput = cameraSession.outputs.first {
-        cameraSession.removeOutput(firstOutput)
+      if let firstOutput = self.cameraSession.outputs.first {
+        self.cameraSession.removeOutput(firstOutput)
       }
 
-      if cameraSession.canAddOutput(dataOutput) {
-        cameraSession.addOutput(dataOutput)
+      if self.cameraSession.canAddOutput(dataOutput) {
+        self.cameraSession.addOutput(dataOutput)
       }
 
       dataOutput.connection(with: .video)?.videoOrientation = .portrait
 
-      cameraSession.commitConfiguration()
+      self.cameraSession.commitConfiguration()
 
-      let queue = DispatchQueue(label: "com.tronplay.videoQueue", attributes: [])
+      let queue = DispatchQueue(label: QueueName.video, attributes: [])
       dataOutput.setSampleBufferDelegate(self, queue: queue)
 
     } catch let error as NSError {
@@ -160,7 +149,7 @@ final class FilterCaptureView: UIView {
 
   fileprivate func switchCamera() {
     self.cameraSession.stopRunning()
-    isCemeraFront.toggle()
+    self.isCemeraFront.toggle()
     self.updateCameraSession()
     self.cameraSession.startRunning()
   }
@@ -194,8 +183,20 @@ final class FilterCaptureView: UIView {
 }
 
 
-extension FilterCaptureView: AVCaptureVideoDataOutputSampleBufferDelegate {
+extension FilterCaptureView: MakeLayout {
+  func addSubViews() {
+    self.addSubview(self.preImageView)
+  }
 
+  func makeConstraints() {
+    self.preImageView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
+  }
+}
+
+
+extension FilterCaptureView: AVCaptureVideoDataOutputSampleBufferDelegate {
   func captureOutput(
     _ output: AVCaptureOutput,
     didOutput sampleBuffer: CMSampleBuffer,
@@ -208,6 +209,7 @@ extension FilterCaptureView: AVCaptureVideoDataOutputSampleBufferDelegate {
   }
   
 }
+
 
 extension Reactive where Base: FilterCaptureView {
   var switchCamera: Binder<Void> {

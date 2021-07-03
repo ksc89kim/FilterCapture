@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		69A0C171979CCF30B9407082 /* Pods_FilterCapture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F64944802414F00FA81505DE /* Pods_FilterCapture.framework */; };
 		787BD6207BDEC1F6359E0144 /* Pods_FilterCaptureTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B49382090990D164BDA8895B /* Pods_FilterCaptureTests.framework */; };
+		A493B635269046D5003B72FB /* MakeLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A493B634269046D5003B72FB /* MakeLayout.swift */; };
+		A493B63926904A7A003B72FB /* CIFilter+Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = A493B63826904A7A003B72FB /* CIFilter+Defines.swift */; };
 		B34FD0DC24C28C2A009AD8F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD0DB24C28C2A009AD8F7 /* AppDelegate.swift */; };
 		B34FD0DE24C28C2A009AD8F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD0DD24C28C2A009AD8F7 /* SceneDelegate.swift */; };
 		B34FD0E024C28C2A009AD8F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34FD0DF24C28C2A009AD8F7 /* ViewController.swift */; };
@@ -45,6 +47,8 @@
 		0536E05F360A47DB7B8AC898 /* Pods-FilterCapture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterCapture.debug.xcconfig"; path = "Target Support Files/Pods-FilterCapture/Pods-FilterCapture.debug.xcconfig"; sourceTree = "<group>"; };
 		1AB2AA07BCED76A629733E08 /* Pods_FilterCapture_FilterCaptureUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FilterCapture_FilterCaptureUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44E0CA0E32409D24CC401546 /* Pods-FilterCapture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FilterCapture.release.xcconfig"; path = "Target Support Files/Pods-FilterCapture/Pods-FilterCapture.release.xcconfig"; sourceTree = "<group>"; };
+		A493B634269046D5003B72FB /* MakeLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeLayout.swift; sourceTree = "<group>"; };
+		A493B63826904A7A003B72FB /* CIFilter+Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIFilter+Defines.swift"; sourceTree = "<group>"; };
 		B34FD0D824C28C2A009AD8F7 /* FilterCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilterCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B34FD0DB24C28C2A009AD8F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B34FD0DD24C28C2A009AD8F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +107,6 @@
 			isa = PBXGroup;
 			children = (
 				B34FD0DA24C28C2A009AD8F7 /* FilterCapture */,
-				B34FD0F124C28C2B009AD8F7 /* FilterCaptureTests */,
 				B34FD0FC24C28C2B009AD8F7 /* FilterCaptureUITests */,
 				B34FD0D924C28C2A009AD8F7 /* Products */,
 				B34FD10B24C28C3A009AD8F7 /* Frameworks */,
@@ -125,13 +128,16 @@
 			isa = PBXGroup;
 			children = (
 				B34FD0DB24C28C2A009AD8F7 /* AppDelegate.swift */,
+				A493B634269046D5003B72FB /* MakeLayout.swift */,
 				B34FD0DD24C28C2A009AD8F7 /* SceneDelegate.swift */,
 				B34FD0DF24C28C2A009AD8F7 /* ViewController.swift */,
 				B39DBBAC24C2E8A800A80622 /* FilterCaptureView.swift */,
+				A493B63826904A7A003B72FB /* CIFilter+Defines.swift */,
 				B34FD0E124C28C2A009AD8F7 /* Main.storyboard */,
 				B34FD0E424C28C2B009AD8F7 /* Assets.xcassets */,
 				B34FD0E624C28C2B009AD8F7 /* LaunchScreen.storyboard */,
 				B34FD0E924C28C2B009AD8F7 /* Info.plist */,
+				B34FD0F124C28C2B009AD8F7 /* FilterCaptureTests */,
 			);
 			path = FilterCapture;
 			sourceTree = "<group>";
@@ -142,7 +148,8 @@
 				B34FD0F224C28C2B009AD8F7 /* FilterCaptureTests.swift */,
 				B34FD0F424C28C2B009AD8F7 /* Info.plist */,
 			);
-			path = FilterCaptureTests;
+			name = FilterCaptureTests;
+			path = ../FilterCaptureTests;
 			sourceTree = "<group>";
 		};
 		B34FD0FC24C28C2B009AD8F7 /* FilterCaptureUITests */ = {
@@ -420,7 +427,9 @@
 			files = (
 				B34FD0E024C28C2A009AD8F7 /* ViewController.swift in Sources */,
 				B34FD0DC24C28C2A009AD8F7 /* AppDelegate.swift in Sources */,
+				A493B63926904A7A003B72FB /* CIFilter+Defines.swift in Sources */,
 				B34FD0DE24C28C2A009AD8F7 /* SceneDelegate.swift in Sources */,
+				A493B635269046D5003B72FB /* MakeLayout.swift in Sources */,
 				B39DBBAD24C2E8A800A80622 /* FilterCaptureView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
