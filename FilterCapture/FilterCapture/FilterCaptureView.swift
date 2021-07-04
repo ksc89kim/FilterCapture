@@ -14,7 +14,7 @@ import SnapKit
 
 final class FilterCaptureView: UIView {
 
-  // MARK: Defines
+  // MARK: - Defines
 
   enum Configuration {
     case filter(CIFilter?)
@@ -26,7 +26,7 @@ final class FilterCaptureView: UIView {
   }
 
 
-  // MARK: UI Components
+  // MARK: - UI Components
 
   private let preImageView: UIImageView = {
     let preview = UIImageView()
@@ -34,7 +34,7 @@ final class FilterCaptureView: UIView {
   }()
 
 
-  // MARK: Properties
+  // MARK: - Properties
 
   private var isCemeraFront: Bool = false
 
@@ -67,7 +67,7 @@ final class FilterCaptureView: UIView {
   }()
 
 
-  // MARK: Initializer
+  // MARK: - Initializers
 
   init() {
     super.init(frame: .zero)
@@ -81,7 +81,7 @@ final class FilterCaptureView: UIView {
   }
 
 
-  // MARK: Configure
+  // MARK: - Configure
 
   func configure(_ configurations: [Configuration]) {
     DispatchQueue.main.async { [weak self] in
@@ -99,7 +99,7 @@ final class FilterCaptureView: UIView {
   }
 
 
-  // MARK: Cameara Session
+  // MARK: - Cameara Session
 
   private func updateCameraSession() {
     do {
@@ -145,7 +145,7 @@ final class FilterCaptureView: UIView {
   }
 
   
-  // MARK: ETC
+  // MARK: - ETC
 
   fileprivate func switchCamera() {
     self.cameraSession.stopRunning()

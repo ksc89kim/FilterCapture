@@ -14,14 +14,14 @@ import SnapKit
 
 final class ViewController: UIViewController {
 
-  // MARK: Defines
+  // MARK: - Defines
 
   enum Text {
     static let buttonTitle = "스위치"
   }
 
 
-  // MARK: UI Components
+  // MARK: - UI Components
 
   private let captrueView: FilterCaptureView = {
     let captrueView = FilterCaptureView()
@@ -39,14 +39,14 @@ final class ViewController: UIViewController {
   }()
 
 
-  // MARK: Properties
+  // MARK: - Properties
 
   let disposeBag: DisposeBag = DisposeBag()
 
   var didMakeConstraints: Bool = false
 
 
-  // MARK: Life Cycle
+  // MARK: - Life Cycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -66,7 +66,7 @@ final class ViewController: UIViewController {
   }
 
 
-  // MARK: Bind
+  // MARK: - Bind
 
   func bind() {
     self.switchButton.rx.tap
