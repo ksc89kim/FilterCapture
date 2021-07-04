@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MakeLayout: class {
+protocol MakeLayout: AnyObject {
   var didMakeConstraints: Bool { get set }
 
   func makeLayout()
