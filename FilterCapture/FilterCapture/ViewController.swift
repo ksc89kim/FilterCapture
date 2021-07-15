@@ -20,7 +20,6 @@ final class ViewController: UIViewController {
     static let buttonTitle = "스위치"
   }
 
-
   // MARK: - UI Components
 
   private let captrueView: FilterCaptureView = {
@@ -38,13 +37,10 @@ final class ViewController: UIViewController {
     return button
   }()
 
-
   // MARK: - Properties
 
   let disposeBag: DisposeBag = DisposeBag()
-
   var didMakeConstraints: Bool = false
-
 
   // MARK: - Life Cycle
 
@@ -64,7 +60,6 @@ final class ViewController: UIViewController {
     super.viewWillDisappear(animated)
     self.captrueView.rx.stopCaptrue.onNext(())
   }
-
 
   // MARK: - Bind
 

@@ -25,7 +25,6 @@ final class FilterCaptureView: UIView {
     static let video = "com.tronplay.videoQueue"
   }
 
-
   // MARK: - UI Components
 
   private let preImageView: UIImageView = {
@@ -37,7 +36,6 @@ final class FilterCaptureView: UIView {
   // MARK: - Properties
 
   private var isCemeraFront: Bool = false
-
   var didMakeConstraints: Bool = false
 
   private var videoDevice: AVCaptureDevice? {
@@ -66,7 +64,6 @@ final class FilterCaptureView: UIView {
     return context
   }()
 
-
   // MARK: - Initializers
 
   init() {
@@ -79,7 +76,6 @@ final class FilterCaptureView: UIView {
   required init?(coder aDecoder: NSCoder) {
     fatalError()
   }
-
 
   // MARK: - Configure
 
@@ -97,7 +93,6 @@ final class FilterCaptureView: UIView {
       }
     }
   }
-
 
   // MARK: - Cameara Session
 
@@ -144,7 +139,6 @@ final class FilterCaptureView: UIView {
     }
   }
 
-  
   // MARK: - ETC
 
   fileprivate func switchCamera() {
